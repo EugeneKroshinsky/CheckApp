@@ -8,14 +8,14 @@ public class CheckRunner {
     public static void main(String[] args)
     {
         CheckService checkService = new CheckService();
-        ProductFactory productFactory = new ProductFactoryImpl();
-        DiscountCardFactory discountCardFactory = new DiscountCardFactoryImpl();
-        DebitCardFactory debitCardFactory = new DebitCardFactoryImpl();
+        ProductsCollectionFactory productsCollectionFactory = new ProductsCollectionFactory();
+        DiscountCardFactory discountCardFactory = new DiscountCardFactory();
+        DebitCardFactory debitCardFactory = new DebitCardFactory();
         Printer printer = new Printer();
 
         CheckCommandHandler checkCommandHandler = new CheckCommandHandler(
                 checkService,
-                productFactory,
+                productsCollectionFactory,
                 discountCardFactory,
                 debitCardFactory,
                 printer

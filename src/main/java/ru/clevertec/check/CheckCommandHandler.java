@@ -12,33 +12,35 @@ import main.java.ru.clevertec.check.utils.CsvWriter;
 import main.java.ru.clevertec.check.utils.Printer;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CheckCommandHandler {
 
     private final CheckService checkService;
-    private final ProductFactory productFactory;
+    private final ProductsCollectionFactory productsCollectionFactory;
     private final DiscountCardFactory discountCardFactory;
     private final DebitCardFactory debitCardFactory;
     private final Printer printer;
 
     public CheckCommandHandler(CheckService checkService,
-                               ProductFactory productFactory,
+                               ProductsCollectionFactory productsCollectionFactory,
                                DiscountCardFactory discountCardFactory,
                                DebitCardFactory debitCardFactory,
                                Printer printer) {
         this.checkService = checkService;
-        this.productFactory = productFactory;
+        this.productsCollectionFactory = productsCollectionFactory;
         this.discountCardFactory = discountCardFactory;
         this.debitCardFactory = debitCardFactory;
         this.printer = printer;
     }
 
     public void execute(String[] args) {
-        List<Product> products = getProductsFromArgs(args);
-        DiscountCard discountCard = getDiscountCardFromArgs(args);
-        DebitCard debitCard = getDebitCardFromArgs(args);
+        List<Product> products = productsCollectionFactory.buildProductCollection(args);
+        DiscountCard discountCard = discountCardFactory.buildProduct(args[args.length - 2]);
+        DebitCard debitCard = debitCardFactory.buildProduct(args[args.length - 1]);
 
         products.forEach(System.out::println);
         System.out.println(discountCard);
@@ -49,17 +51,7 @@ public class CheckCommandHandler {
         printCheck(printer, new CsvWriter(), check);
         printCheck(printer, new ConsoleWriter(), check);*/
     }
-    private List<Product> getProductsFromArgs(String[] args) {
-        return Arrays.stream(args, 0, args.length - 2)
-                .map(productFactory::buildProduct)
-                .collect(Collectors.toList());
-    }
-    private DiscountCard getDiscountCardFromArgs(String[] args) {
-        return discountCardFactory.buildProduct(args[args.length - 2]);
-    }
-    private DebitCard getDebitCardFromArgs(String[] args) {
-        return debitCardFactory.buildProduct(args[args.length - 1]);
-    }
+
     private void printCheck(Printer printer, CheckWriter checkWriter, Check check) {
         printer.setCheckWriter(checkWriter);
         printer.print(check);

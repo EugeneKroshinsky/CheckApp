@@ -21,4 +21,12 @@ public class Product {
                 .add("quantity=" + quantity)
                 .toString();
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

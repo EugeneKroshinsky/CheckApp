@@ -1,20 +1,26 @@
 package main.java.ru.clevertec.check.dto;
 
+import javax.swing.text.ChangedCharSetException;
 import java.util.Date;
 import java.util.List;
 
-public class Check {
+public class Check extends CoreCheck{
     private Date date;
 
     public Check() {
+        super();
     }
 
+    public Check(List<ValidationError> errors) {
+        super(errors);
+    }
     public Check(Date date, List<CheckItem> checkItems,
                  int discountCard,
                  int discountPercentage,
                  double totalPrice,
                  double totalDiscount,
                  double totalWithDiscount) {
+        super();
         this.date = date;
         this.checkItems = checkItems;
         this.discountCard = discountCard;

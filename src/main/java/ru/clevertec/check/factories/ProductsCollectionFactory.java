@@ -13,7 +13,7 @@ public class ProductsCollectionFactory{
     private   Map<Integer, Product> getProductMap(String[] args) {
         ProductFactory productFactory = new ProductFactory();
         Map<Integer, Product> products = new HashMap<>();
-        for (int i = 0; i < args.length - 2; i++) {
+        for (int i = 0; i < args.length; i++) {
             Product product = productFactory.buildProduct(args[i]);
             int currentId = product.getId();
             if (products.containsKey(currentId)){

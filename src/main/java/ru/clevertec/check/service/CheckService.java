@@ -1,44 +1,27 @@
 package main.java.ru.clevertec.check.service;
 
 import main.java.ru.clevertec.check.dto.*;
-import main.java.ru.clevertec.check.factories.DebitCardFactory;
-import main.java.ru.clevertec.check.factories.DiscountCardFactory;
-import main.java.ru.clevertec.check.factories.ProductsCollectionFactory;
-import main.java.ru.clevertec.check.validators.Validator;
-
-import java.util.Arrays;
+import main.java.ru.clevertec.check.factories.*;
+import main.java.ru.clevertec.check.validators.arg.ArgValidator;
 import java.util.List;
 
 public class CheckService {
-    private final ProductsCollectionFactory productsCollectionFactory;
-    private final DiscountCardFactory discountCardFactory;
-    private final DebitCardFactory debitCardFactory;
-    private final Validator validator;
+    private final ArgValidator argValidator;
 
-    public CheckService(ProductsCollectionFactory productsCollectionFactory,
-                        DiscountCardFactory discountCardFactory,
-                        DebitCardFactory debitCardFactory,
-                        Validator validator) {
-        this.productsCollectionFactory = productsCollectionFactory;
-        this.discountCardFactory = discountCardFactory;
-        this.debitCardFactory = debitCardFactory;
-        this.validator = validator;
+    public CheckService(ArgValidator argValidator) {
+        this.argValidator = argValidator;
     }
 
     public Check calculate(String[] args) {
-        List<ValidationError> errors = validator.validate(args);
-        return errors != null ? getCheck(errors) : getCheck(args);
+        List<ValidationError> errors = argValidator.validate(args);
+        return errors.isEmpty() ? getCheck(args) : getCheck(errors);
     }
+
     private Check getCheck(String[] args) {
-        List<Product> products = productsCollectionFactory.buildProductCollection(
-                Arrays.copyOf(args, args.length - 2)
-        );
-        DiscountCard discountCard = discountCardFactory.buildProduct(args[args.length - 2]);
-        DebitCard debitCard = debitCardFactory.buildProduct(args[args.length - 1]);
-
+        RequestFactory requestFactory = new RequestFactory();
+        Request request = requestFactory.buildRequest(args);
         CalculateCheckService calculator = new CalculateCheckService();
-        return calculator.calculate(products, discountCard, debitCard);
-
+        return calculator.calculate(request);
     }
     private Check getCheck(List<ValidationError> errors) {
         return new Check(errors);

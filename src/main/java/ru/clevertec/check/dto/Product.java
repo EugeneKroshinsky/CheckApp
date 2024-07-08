@@ -14,6 +14,14 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Product.class.getSimpleName() + "[", "]")

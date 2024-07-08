@@ -1,9 +1,9 @@
-package main.java.ru.clevertec.check.validators;
+package main.java.ru.clevertec.check.validators.arg;
 
 import main.java.ru.clevertec.check.dto.ValidationError;
 
 import java.util.Optional;
 
-public interface Validation {
+public interface ArgValidation {
     Optional<ValidationError> validate(String[] args);
 }

@@ -6,10 +6,14 @@ import java.util.List;
 
 public class Check extends CoreCheck{
     private Date date;
+    private List<CheckItem> checkItems;
 
-    public Check() {
-        super();
-    }
+    private int discountCard;
+    private int discountPercentage;
+
+    private double totalPrice;
+    private double totalDiscount;
+    private double totalWithDiscount;
 
     public Check(List<ValidationError> errors) {
         super(errors);
@@ -27,6 +31,38 @@ public class Check extends CoreCheck{
         this.discountPercentage = discountPercentage;
         this.totalPrice = totalPrice;
         this.totalDiscount = totalDiscount;
+        this.totalWithDiscount = totalWithDiscount;
+    }
+
+    public Check() {
+        super();
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setCheckItems(List<CheckItem> checkItems) {
+        this.checkItems = checkItems;
+    }
+
+    public void setDiscountCard(int discountCard) {
+        this.discountCard = discountCard;
+    }
+
+    public void setDiscountPercentage(int discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setTotalDiscount(double totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public void setTotalWithDiscount(double totalWithDiscount) {
         this.totalWithDiscount = totalWithDiscount;
     }
 
@@ -58,12 +94,6 @@ public class Check extends CoreCheck{
         return totalWithDiscount;
     }
 
-    private List<CheckItem> checkItems;
 
-    private int discountCard;
-    private int discountPercentage;
 
-    private double totalPrice;
-    private double totalDiscount;
-    private double totalWithDiscount;
 }

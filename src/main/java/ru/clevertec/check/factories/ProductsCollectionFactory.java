@@ -11,10 +11,9 @@ public class ProductsCollectionFactory{
         return getProductMap(args).values().stream().toList();
     }
     private   Map<Integer, Product> getProductMap(String[] args) {
-        ProductFactory productFactory = new ProductFactory();
         Map<Integer, Product> products = new HashMap<>();
         for (int i = 0; i < args.length; i++) {
-            Product product = productFactory.buildProduct(args[i]);
+            Product product = buildProduct(args[i]);
             int currentId = product.getId();
             if (products.containsKey(currentId)){
                 int currentQuantity = products.get(currentId).getQuantity();
@@ -26,5 +25,14 @@ public class ProductsCollectionFactory{
             }
         }
         return products;
+    }
+    private Product buildProduct(String productString){
+        String[] parts = productString.split("-");
+
+        //TODO: add exceptions
+
+        int id = Integer.parseInt(parts[0]);
+        int quantity = Integer.parseInt(parts[1]);
+        return new Product(id, quantity);
     }
 }

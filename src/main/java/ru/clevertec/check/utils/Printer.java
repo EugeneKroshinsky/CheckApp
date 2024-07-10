@@ -1,7 +1,7 @@
 package main.java.ru.clevertec.check.utils;
 
 import main.java.ru.clevertec.check.dto.check.Check;
-import main.java.ru.clevertec.check.utils.wrtiters.CheckWriter;
+import main.java.ru.clevertec.check.utils.writers.CheckWriter;
 
 import java.io.IOException;
 

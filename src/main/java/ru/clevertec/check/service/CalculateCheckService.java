@@ -10,26 +10,26 @@ public class CalculateCheckService {
     public Check calculate(Request request) {
         Check check = new Check();
         check.setDate(new Date());
-        check.setCheckItems(request.getProducts());
-
+        check.setCheckItems(request.getCheckItems());
+        check.setDebitCard(request.getDebitCard());
+        check.setProducts(request.getProducts());
         if (request.getDiscountCard() != null) {
             check.setDiscountCard(request.getDiscountCard().getNumber());
             check.setDiscountPercentage((int)(request.getDiscountCard().getPercentage() * 100));
         }
-
-        double totalPrice = check.getCheckItems().stream()
+        check.setTotalPrice(getTotalPrice(check));
+        check.setTotalDiscount(getTotalDiscount(check));
+        check.setTotalWithDiscount(check.getTotalPrice() - check.getTotalWithDiscount());
+        return check;
+    }
+    private double getTotalPrice(Check check) {
+        return check.getCheckItems().stream()
                 .map(CheckItem::getTotal)
                 .reduce(Double::sum).orElse(0d);
-        check.setTotalPrice(totalPrice);
-
-        double totalDiscount = check.getCheckItems().stream()
+    }
+    private double getTotalDiscount(Check check) {
+        return check.getCheckItems().stream()
                 .map(CheckItem::getDiscount)
                 .reduce(Double::sum).orElse(0d);
-        check.setTotalDiscount(totalDiscount);
-
-        double totalWithDiscount = totalPrice - totalDiscount;
-        check.setTotalWithDiscount(totalWithDiscount);
-
-        return check;
     }
 }

@@ -20,32 +20,24 @@ public class CheckItemFactory {
         mutableProducts.sort((el1, el2) -> Integer.compare(el1.getId(), el2.getId()));
 
         int i = 0, j = 0;
-        while(i < productRepositories.size() && j < products.size()) {
-            if (productRepositories.get(i).getId() == products.get(j).getId()) {
-                int quantity = products.get(j).getQuantity();
-                int qtyInShop = productRepositories.get(i).getQuantity();
-                double price = productRepositories.get(i).getPrice();
-                String description = productRepositories.get(i).getName();
-                double discount = 0;
-                if(productRepositories.get(i).isWholesale() && qtyInShop >= 5) {
-                   discount = 0.10d; //TODO считывать из файла .properties
-                } else if (discountCardRepository != null) {
-                    discount = discountCardRepository.getPercentage();
-                }
-
-                double total = quantity * price;
-                CheckItem checkItem = new CheckItem(
-                        quantity,
-                        price,
-                        discount * total,
-                        total,
-                        qtyInShop,
-                        description
-                );
+        while(i < mutableProductRepositories.size() && j < mutableProducts.size()) {
+            if (mutableProductRepositories.get(i).getId() == mutableProducts.get(j).getId()) {
+                CheckItem checkItem = new CheckItem();
+                checkItem.setId(mutableProducts.get(j).getId());
+                checkItem.setQuantity(mutableProducts.get(j).getQuantity());
+                checkItem.setQuantityInShop(mutableProductRepositories.get(i).getQuantity());
+                checkItem.setPrice(mutableProductRepositories.get(i).getPrice());
+                checkItem.setDescription(mutableProductRepositories.get(i).getName());
+                double discount = mutableProductRepositories.get(i).isWholesale()
+                            && checkItem.getQuantityInShop() >= 5
+                        ? 0.10d
+                        : (discountCardRepository != null ? discountCardRepository.getPercentage() : 0);
+                checkItem.setDiscount(discount);
+                checkItem.setTotal(checkItem.getQuantity() * checkItem.getPrice());
                 checkItems.add(checkItem);
                 i++;
                 j++;
-            } else if (productRepositories.get(i).getId() < products.get(j).getId()) {
+            } else if (mutableProductRepositories.get(i).getId() < mutableProducts.get(j).getId()) {
                 i++;
             } else {
                 j++;

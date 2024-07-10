@@ -10,17 +10,23 @@ public class CheckItem {
     private double total;
     private int quantityInShop;
     private String description;
+    private int id;
 
     public CheckItem() {
     }
 
-    public CheckItem(int quantity, double price, double discount, double total, int quantityInShop, String description) {
+    public CheckItem(int quantity, double price, double discount, double total, int quantityInShop, String description, int id) {
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
         this.total = total;
         this.quantityInShop = quantityInShop;
         this.description = description;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getQuantity() {
@@ -67,6 +73,9 @@ public class CheckItem {
         this.description = description;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setQuantityInShop(int quantityInShop) {
         this.quantityInShop = quantityInShop;

@@ -1,6 +1,7 @@
 package main.java.ru.clevertec.check.utils.readers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,19 +15,19 @@ public class CSVFileReader implements FileReader {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine(), delimiter));
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException("INTERNAL SERVER ERROR");
+            //TODO Сделать вывод в файл
         }
         return records;
     }
-    private List<String> getRecordFromLine(String line, String delimiter) {
+    private List<String> getRecordFromLine(String line, String delimiter) throws IOException {
         List<String> values = new ArrayList<>();
-        try (Scanner rowScanner = new Scanner(line)) {
+        Scanner rowScanner = new Scanner(line);
             rowScanner.useDelimiter(delimiter);
             while (rowScanner.hasNext()) {
                 values.add(rowScanner.next());
             }
-        }
         return values;
     }
 }

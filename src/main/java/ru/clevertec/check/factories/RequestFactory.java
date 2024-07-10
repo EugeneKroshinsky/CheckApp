@@ -17,6 +17,7 @@ public class RequestFactory {
         CheckItemFactory checkItemFactory = new CheckItemFactory();
         DiscountCardRepositoryFactory discountCardRepositoryFactory = new DiscountCardRepositoryFactory();
         FileReader fileReader = new CSVFileReader();
+
         List<Product> products = productsCollectionFactory.buildProductCollection(
                 Arrays.copyOf(args, args.length - 2)
         );
@@ -43,6 +44,8 @@ public class RequestFactory {
                 clientCard
         );
 
-        return new Request(checkItems, clientCard, debitCard);
+        return new Request(checkItems, clientCard, debitCard, productRepositories, products);
     }
+
+
 }

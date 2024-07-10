@@ -9,9 +9,13 @@ public class ValidationError {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", ValidationError.class.getSimpleName() + "[", "]")
+        return new StringJoiner(",", ValidationError.class.getSimpleName() + "[", "]")
                 .add("name='" + name + "'")
                 .toString();
     }

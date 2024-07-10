@@ -3,6 +3,8 @@ package main.java.ru.clevertec.check.dto.request;
 import java.util.StringJoiner;
 
 public class DebitCard {
+    private double balance;
+
     public DebitCard(double balance) {
         this.balance = balance;
     }
@@ -10,7 +12,13 @@ public class DebitCard {
     public DebitCard() {
     }
 
-    double balance;
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
 
     @Override
     public String toString() {

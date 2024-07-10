@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.check.utils.wrtiters;
+package main.java.ru.clevertec.check.utils.writers;
 import main.java.ru.clevertec.check.dto.check.Check;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

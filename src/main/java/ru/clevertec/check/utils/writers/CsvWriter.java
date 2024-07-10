@@ -1,12 +1,16 @@
-package main.java.ru.clevertec.check.utils.wrtiters;
+package main.java.ru.clevertec.check.utils.writers;
 
+import main.java.ru.clevertec.check.dto.ValidationError;
 import main.java.ru.clevertec.check.dto.check.Check;
+import main.java.ru.clevertec.check.utils.Printer;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class CsvWriter implements EnhancedWriter {
     private final SimpleDateFormat dateFormat;
@@ -25,9 +29,9 @@ public class CsvWriter implements EnhancedWriter {
         try (PrintWriter fileWriter = new PrintWriter(new File(path))) {
             if (check.hasErrors()) {
                 fileWriter.println("ERROR");
-                fileWriter.println(check.getErrors().getFirst());
+                fileWriter.println(check.getErrors().getFirst().getName());
             } else {
-                fileWriter.println("Date;Time;");
+                fileWriter.println("Date;Time");
                 fileWriter.println(dateFormat.format(check.getDate()) + DELIMITER + timeFormat.format(check.getDate()));
                 fileWriter.println();
                 fileWriter.print("QTY" + DELIMITER);
@@ -58,7 +62,8 @@ public class CsvWriter implements EnhancedWriter {
                 fileWriter.flush();
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException("INTERNAL SERVER ERROR");
+            //TODO сделать выод в файл
         }
     }
     @Override

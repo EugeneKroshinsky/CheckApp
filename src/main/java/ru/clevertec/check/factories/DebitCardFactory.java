@@ -1,6 +1,6 @@
 package main.java.ru.clevertec.check.factories;
 
-import main.java.ru.clevertec.check.dto.DebitCard;
+import main.java.ru.clevertec.check.dto.request.DebitCard;
 
 public class DebitCardFactory {
     public DebitCard buildProduct(String productString){

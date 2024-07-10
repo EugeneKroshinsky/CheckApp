@@ -1,8 +1,7 @@
 package main.java.ru.clevertec.check.factories;
 
-import main.java.ru.clevertec.check.dto.ProductRepository;
-import main.java.ru.clevertec.check.dto.Request;
-import main.java.ru.clevertec.check.utils.FileReader;
+import main.java.ru.clevertec.check.dto.request.ProductRepository;
+import main.java.ru.clevertec.check.utils.readers.FileReader;
 
 import java.io.File;
 import java.util.List;

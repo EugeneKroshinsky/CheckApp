@@ -1,7 +1,7 @@
 package main.java.ru.clevertec.check.factories;
 
 
-import main.java.ru.clevertec.check.dto.DiscountCard;
+import main.java.ru.clevertec.check.dto.request.DiscountCard;
 
 public class DiscountCardFactory {
 

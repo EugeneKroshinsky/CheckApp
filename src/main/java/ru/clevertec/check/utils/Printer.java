@@ -1,6 +1,9 @@
 package main.java.ru.clevertec.check.utils;
 
-import main.java.ru.clevertec.check.dto.Check;
+import main.java.ru.clevertec.check.dto.check.Check;
+import main.java.ru.clevertec.check.utils.wrtiters.CheckWriter;
+
+import java.io.IOException;
 
 public class Printer {
     private CheckWriter checkWriter;
@@ -16,7 +19,7 @@ public class Printer {
         this.checkWriter = checkWriter;
     }
 
-    public void print(Check check) {
+    public void print(Check check)  throws IOException {
          if (checkWriter != null) {
              checkWriter.write(check);
          } else {

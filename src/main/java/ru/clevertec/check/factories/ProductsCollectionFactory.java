@@ -1,6 +1,6 @@
 package main.java.ru.clevertec.check.factories;
 
-import main.java.ru.clevertec.check.dto.Product;
+import main.java.ru.clevertec.check.dto.request.Product;
 
 import java.util.HashMap;
 import java.util.List;
